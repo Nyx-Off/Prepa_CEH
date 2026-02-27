@@ -1,0 +1,326 @@
+================================================================================
+                    RECONNAISSANCE root-me.org - HISTORIQUE COMPLET
+                              Date: 27 Février 2026
+================================================================================
+
+[CMD 001] host root-me.org
+--------------------------------------------------------------------------------
+root-me.org has address 212.129.28.16
+root-me.org mail is handled by 1 mx1.mail.ovh.net.
+root-me.org mail is handled by 5 mx2.mail.ovh.net.
+root-me.org mail is handled by 100 mx3.mail.ovh.net.
+
+================================================================================
+
+[CMD 002] dig root-me.org +short
+--------------------------------------------------------------------------------
+212.129.28.16
+
+================================================================================
+
+[CMD 003] whois root-me.org
+--------------------------------------------------------------------------------
+Domain Name: root-me.org
+Registry Domain ID: REDACTED
+Registrar WHOIS Server: http://whois.ovh.com
+Registrar URL: http://www.ovh.com
+Updated Date: 2025-05-20T06:03:15Z
+Creation Date: 2010-02-19T16:01:27Z
+Registry Expiry Date: 2030-02-19T16:01:27Z
+Registrar: OVH sas
+Registrar IANA ID: 433
+Registrar Abuse Contact Email: abuse@ovh.net
+Registrar Abuse Contact Phone: +33.972101007
+Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+Name Server: dns200.anycast.me
+Name Server: ns200.anycast.me
+DNSSEC: signedDelegation
+URL of the ICANN Whois Inaccuracy Complaint Form: https://icann.org/wicf/
+>>> Last update of WHOIS database: 2026-02-27T09:16:16Z <<<
+
+================================================================================
+
+[CMD 004] dnsrecon -d root-me.org -t std
+--------------------------------------------------------------------------------
+[*] std: Performing General Enumeration against: root-me.org...
+[!] Wildcard resolution is enabled on this domain
+[!] It is resolving to www.root-me.org
+[!] It is resolving to 212.129.28.16
+[!] All queries will resolve to this list of addresses!!
+[*] DNSSEC is configured for root-me.org
+[*] DNSKEYs:
+[*] 	NSEC3 ZSK RSASHA256 0301000191c2b428fd6fdd1bf6d4e836...
+[*] 	NSEC3 KSk RSASHA256 03010001dc1d43e7793dd2d372223d61...
+[*] 	 SOA dns200.anycast.me 46.105.206.200
+[*] 	 NS ns200.anycast.me 46.105.207.200
+[*] 	 NS dns200.anycast.me 46.105.206.200
+[*] 	 MX mx1.mail.ovh.net 188.165.36.237
+[*] 	 MX mx2.mail.ovh.net 87.98.160.167
+[*] 	 MX mx3.mail.ovh.net 91.121.53.175
+[*] 	 A root-me.org 212.129.28.16
+[*] 	 TXT root-me.org v=spf1 a:service.root-me.org include:mx.ovh.com ~all
+[*] 	 TXT root-me.org google-site-verification=fhnZ_3PpIq5HepVdk4DXFmjsWmUBabr7PKLMG1gszhA
+[*] Enumerating SRV Records
+[+] 	 SRV _submission._tcp.root-me.org ssl0.ovh.net 193.70.18.144 465
+[+] 	 SRV _imaps._tcp.root-me.org ssl0.ovh.net 193.70.18.144 993
+[+] 	 SRV _autodiscover._tcp.root-me.org mailconfig.ovh.net 213.186.33.5 443
+[+] 3 Records Found
+
+================================================================================
+
+[CMD 005] subfinder -d root-me.org -silent
+--------------------------------------------------------------------------------
+sql-injection-string.challenges.airbus.pro.root-me.org
+ec2-35-180-4-28.aws.root-me.org
+java-deserialization.csi-ctf.pro.root-me.org
+exposition-sensible.csi-ctf.pro.root-me.org
+quizz.ctf-certa.pro.root-me.org
+http-improper-redirect.challenges.airbus.pro.root-me.org
+myavatar.root-me.org
+ec2-13-39-48-40.aws.root-me.org
+ctf20.root-me.org
+csi-ctf.pro.root-me.org
+ec2-13-37-57-31.aws.root-me.org
+dev.root-me.org
+ac-paris.pro.root-me.org
+ec2-35-180-138-146.aws.root-me.org
+ctf03.root-me.org
+ec2-35-180-36-160.aws.root-me.org
+ec2-15-188-54-124.aws.root-me.org
+ec2-13-39-82-197.aws.root-me.org
+ipv6.www.root-me.org
+http-headers.challenges.airbus.pro.root-me.org
+ec2-15-188-64-68.aws.root-me.org
+ec2-15-188-56-53.aws.root-me.org
+ec2-35-180-100-117.aws.root-me.org
+ctf12.root-me.org
+ctf10.root-me.org
+on-se-re-source.ctf-ipi.pro.root-me.org
+ec2-35-180-192-30.aws.root-me.org
+ctf05.root-me.org
+ec2-15-236-207-233.aws.root-me.org
+ec2-13-38-228-184.aws.root-me.org
+
+================================================================================
+
+[CMD 006] amass enum -passive -d root-me.org
+--------------------------------------------------------------------------------
+root-me.org (FQDN) --> mx_record --> mx1.mail.ovh.net (FQDN)
+root-me.org (FQDN) --> mx_record --> mx2.mail.ovh.net (FQDN)
+root-me.org (FQDN) --> mx_record --> mx3.mail.ovh.net (FQDN)
+ec2-13-38-216-171.aws.root-me.org (FQDN) --> cname_record --> ec2-13-38-216-171.eu-west-3.compute.amazonaws.com (FQDN)
+webssh.root-me.org (FQDN) --> cname_record --> challenge01.root-me.org (FQDN)
+ctf30.root-me.org (FQDN) --> a_record --> 163.172.229.107 (IPAddress)
+ctf03.root-me.org (FQDN) --> a_record --> 212.129.29.185 (IPAddress)
+challenge02.root-me.org (FQDN) --> a_record --> 212.129.38.224 (IPAddress)
+challenge02.root-me.org (FQDN) --> aaaa_record --> 2001:bc8:35b0:c166::152 (IPAddress)
+163.172.224.0/19 (Netblock) --> contains --> 163.172.229.107 (IPAddress)
+212.129.0.0/18 (Netblock) --> contains --> 212.129.29.185 (IPAddress)
+212.129.0.0/18 (Netblock) --> contains --> 212.129.38.224 (IPAddress)
+2001:bc8:2000::/35 (Netblock) --> contains --> 2001:bc8:35b0:c166::152 (IPAddress)
+12876 (ASN) --> managed_by --> Online SAS (RIROrganization)
+12876 (ASN) --> announces --> 163.172.224.0/19 (Netblock)
+12876 (ASN) --> announces --> 212.129.0.0/18 (Netblock)
+12876 (ASN) --> announces --> 2001:bc8:2000::/35 (Netblock)
+ec2-13-38-216-171.eu-west-3.compute.amazonaws.com (FQDN) --> a_record --> 13.38.216.171 (IPAddress)
+challenge01.root-me.org (FQDN) --> a_record --> 212.129.38.224 (IPAddress)
+challenge01.root-me.org (FQDN) --> aaaa_record --> 2001:bc8:35b0:c166::151 (IPAddress)
+ctf15.root-me.org (FQDN) --> a_record --> 212.83.175.152 (IPAddress)
+imap.root-me.org (FQDN) --> cname_record --> ssl0.ovh.net (FQDN)
+ctf45.root-me.org (FQDN) --> a_record --> 212.83.172.198 (IPAddress)
+ctf25.root-me.org (FQDN) --> a_record --> 163.172.228.174 (IPAddress)
+static.root-me.org (FQDN) --> cname_record --> challenge01.root-me.org (FQDN)
+ctf50.root-me.org (FQDN) --> a_record --> 212.83.173.35 (IPAddress)
+163.172.224.0/19 (Netblock) --> contains --> 163.172.228.174 (IPAddress)
+2001:bc8:2000::/35 (Netblock) --> contains --> 2001:bc8:35b0:c166::151 (IPAddress)
+212.83.128.0/18 (Netblock) --> contains --> 212.83.175.152 (IPAddress)
+212.83.128.0/18 (Netblock) --> contains --> 212.83.172.198 (IPAddress)
+212.83.128.0/18 (Netblock) --> contains --> 212.83.173.35 (IPAddress)
+12876 (ASN) --> announces --> 212.83.128.0/18 (Netblock)
+soc.challenges.pro.root-me.org (FQDN) --> a_record --> 163.172.101.87 (IPAddress)
+ctf27.root-me.org (FQDN) --> a_record --> 163.172.228.194 (IPAddress)
+challenge03.root-me.org (FQDN) --> a_record --> 212.129.38.224 (IPAddress)
+challenge03.root-me.org (FQDN) --> aaaa_record --> 2001:bc8:35b0:c166::153 (IPAddress)
+ctf44.root-me.org (FQDN) --> a_record --> 212.83.172.192 (IPAddress)
+ctf20.root-me.org (FQDN) --> a_record --> 163.172.195.228 (IPAddress)
+challenge05.root-me.org (FQDN) --> a_record --> 212.129.38.224 (IPAddress)
+challenge05.root-me.org (FQDN) --> aaaa_record --> 2001:bc8:35b0:c166::155 (IPAddress)
+
+================================================================================
+
+[CMD 007] curl -s -I https://root-me.org
+--------------------------------------------------------------------------------
+HTTP/2 301
+server: nginx
+date: Fri, 27 Feb 2026 09:18:13 GMT
+content-type: text/html
+content-length: 162
+location: https://www.root-me.org/
+strict-transport-security: max-age=15768000
+
+================================================================================
+
+[CMD 008] whatweb root-me.org
+--------------------------------------------------------------------------------
+http://root-me.org/ [302 Found] Country[FRANCE][FR], IP[212.129.28.16], RedirectLocation[https://root-me.org/]
+https://root-me.org [301 Moved Permanently] Country[FRANCE][FR], HTTPServer[nginx], IP[212.129.28.16], RedirectLocation[https://www.root-me.org/], Strict-Transport-Security[max-age=15768000], Title[301 Moved Permanently], nginx
+https://root-me.org/ [301 Moved Permanently] Country[FRANCE][FR], HTTPServer[nginx], IP[212.129.28.16], RedirectLocation[https://www.root-me.org/], Strict-Transport-Security[max-age=15768000], Title[301 Moved Permanently], nginx
+https://www.root-me.org/ [200 OK] Country[FRANCE][FR], HTML5, HTTPServer[nginx], IP[212.129.28.16], SPIP, Script[text/javascript], Strict-Transport-Security[max-age=15768000, max-age=15768000, max-age=15768000], Title[Bienvenue [Root Me : plateforme d'apprentissage dédiée au Hacking et à la Sécurité de l'Information]], UncommonHeaders[content-security-policy,x-spip-cache], probably WordPress, X-XSS-Protection[1; mode=block, 1; mode=block], nginx
+
+================================================================================
+
+[CMD 009] nmap -sV -sC -T4 --top-ports 100 212.129.28.16
+--------------------------------------------------------------------------------
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-02-27 10:18 CET
+Nmap scan report for www.root-me.org (212.129.28.16)
+Host is up (0.0043s latency).
+Not shown: 98 filtered tcp ports (no-response)
+PORT    STATE SERVICE    VERSION
+80/tcp  open  http-proxy HAProxy http proxy 2.0.0 or later
+|_http-title: Did not follow redirect to https://www.root-me.org/
+|_http-open-proxy: Proxy might be redirecting requests
+443/tcp open  ssl/https?
+Service Info: Device: load balancer
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 13.57 seconds
+
+================================================================================
+
+[CMD 010] theHarvester -d root-me.org -b all
+--------------------------------------------------------------------------------
+*******************************************************************
+*  _   _                                            _             *
+* | |_| |__   ___    /\  /\__ _ _ ____   _____  ___| |_ ___ _ __  *
+* | __|  _ \ / _ \  / /_/ / _` | '__\ \ / / _ \/ __| __/ _ \ '__| *
+* | |_| | | |  __/ / __  / (_| | |   \ V /  __/\__ \ ||  __/ |    *
+*  \__|_| |_|\___| \/ /_/ \__,_|_|    \_/ \___||___/\__\___|_|    *
+*                                                                 *
+* theHarvester 4.8.2                                              *
+* Coded by Christian Martorella                                   *
+* Edge-Security Research                                          *
+* cmartorella@edge-security.com                                   *
+*                                                                 *
+*******************************************************************
+
+[*] Target: root-me.org
+
+Read api-keys.yaml from /etc/theHarvester/api-keys.yaml
+
+[!] Missing API key for bevigil.
+[!] Missing API key for bufferoverun.
+[!] Missing API key for Censys ID and/or Secret.
+[!] Missing API key for criminalip.
+[!] Missing API key for Dehashed.
+[!] Missing API key for DNSDumpster.
+[!] Missing API key for fullhunt.
+[!] Missing API key for Github.
+[!] Missing API key for Hunter.
+[!] Missing API key for hunterhow.
+[!] Missing API key for Intelx.
+[!] Missing API key for netlas.
+[!] Missing API key for onyphe.
+[!] Missing API key for PentestTools.
+[!] Missing API key for ProjectDiscovery.
+[!] Missing API key for RocketReach.
+[!] Missing API key for Securitytrail.
+[!] Missing API key for Shodan.
+
+================================================================================
+
+[CMD 011] dig +short TXT root-me.org
+--------------------------------------------------------------------------------
+"v=spf1 a:service.root-me.org include:mx.ovh.com ~all"
+"google-site-verification=fhnZ_3PpIq5HepVdk4DXFmjsWmUBabr7PKLMG1gszhA"
+
+================================================================================
+
+[CMD 012] curl -s "https://crt.sh/?q=%.root-me.org&output=json" | jq -r '.[].name_value' | sort -u
+--------------------------------------------------------------------------------
+root-me.org
+
+================================================================================
+
+[WEB SEARCH 001] Shodan - 212.129.28.16
+--------------------------------------------------------------------------------
+URL: https://www.shodan.io/host/212.129.28.16
+
+Ports ouverts:
+- Port 80 (HTTP) - TCP - "HTTP/1.1 302 Found" redirect vers https://212.129.28.16/
+- Port 443 (HTTPS) - TCP - Nginx
+
+Services détectés:
+- Serveur web: Nginx
+- Bannière HTTP avec headers de sécurité:
+  - strict-transport-security: max-age=15768000
+  - x-xss-protection: 1; mode=block
+  - Content Security Policy restrictive
+
+Certificat SSL/TLS:
+- Domaine: www.root-me.org
+- Autorité: Let's Encrypt (R13)
+- Validité: 28 décembre 2025 au 28 mars 2026
+- Clé RSA 2048-bit
+
+Hébergement: Scaleway Dedibox IPFO, Paris, France
+
+================================================================================
+
+[WEB SEARCH 002] Google Dork - site:root-me.org filetype:pdf
+--------------------------------------------------------------------------------
+Résultats trouvés sur repository.root-me.org:
+
+1. Hacking WiFi
+   URL: repository.root-me.org/Réseau/EN - Hacking wifi.pdf
+
+2. Malicious Origami in PDF
+   URL: repository.root-me.org/Stéganographie/EN - Malicious Origami in PDF.pdf
+
+3. Bases du JavaScript
+   URL: repository.root-me.org/Programmation/Javascript/FR - Bases du javascript.pdf
+
+4. Printer Steganography
+   URL: repository.root-me.org/Stéganographie/EN - Printer-Steganography-Peter-Buck-2018.pdf
+
+5. Computer Viruses - From Theory to Applications
+   URL: repository.root-me.org/Virologie/EN - Computer viruses from theory to applications.pdf
+
+6. Commandes Google (Dorks)
+   URL: repository.root-me.org/Exploitation - Web/FR - commandes google.pdf
+
+================================================================================
+
+[WEB SEARCH 003] Recherche emails - root-me.org
+--------------------------------------------------------------------------------
+Emails identifiés:
+- contact@pro.root-me.org (Contact principal Root-Me PRO)
+- abuse@ovh.net (Contact abuse registrar)
+
+Réseaux sociaux:
+- Twitter/X: @rootme_org
+- LinkedIn: Root-Me Pro (15,700+ followers)
+
+Informations organisation:
+- Localisation: Saint-Cyr-au-Mont-d'Or, Auvergne-Rhône-Alpes, France
+- Type: Association à but non lucratif
+- Employés (PRO): ~37 personnes
+
+================================================================================
+
+[WEB SEARCH 004] Google Dork - site:root-me.org inurl:admin OR inurl:login
+--------------------------------------------------------------------------------
+Résultat trouvé:
+- Commandes Google (Dorks) PDF
+  URL: repository.root-me.org/Exploitation - Web/FR - commandes google.pdf
+
+  Contenu: Document listant les opérateurs Google Dorks pour la reconnaissance:
+  - inurl:admin intitle:login
+  - inurl:backup filetype:mdb
+  - WebLogic Server console logins
+  - Miva Merchant administration logins
+  - PRTG Traffic Grapher pages
+
+================================================================================
+                              FIN DU LOG
+================================================================================

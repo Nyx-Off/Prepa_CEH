@@ -1,9 +1,7 @@
 # Rapport de Pentest - Metasploitable 1
 
-**Date**: 27 Fevrier 2026
 **Cible**: 192.168.144.128 (Metasploitable 1)
 **Attaquant**: Kali Linux WSL
-**Auteur**: Etudiant CEH
 
 ---
 

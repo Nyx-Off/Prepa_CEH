@@ -1,6 +1,6 @@
 # Rapport de Pentest - Metasploitable 1
 
-**Cible**: 192.168.144.128 (Metasploitable 1)  **|**  
+**Cible**: 192.168.144.128 (Metasploitable 1) 
 **Attaquant**: Kali Linux WSL
 
 ---

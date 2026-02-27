@@ -1,6 +1,6 @@
 # Rapport de Pentest - Metasploitable 1
 
-**Cible**: 192.168.144.128 (Metasploitable 1)
+**Cible**: 192.168.144.128 (Metasploitable 1)  **|**  
 **Attaquant**: Kali Linux WSL
 
 ---
@@ -382,11 +382,112 @@ proftpd:!:14727:0:99999:7:::
 
 **Format du hash**: MD5 (identifie par le prefixe `$1$`)
 
-**Pour cracker avec John the Ripper**:
+### 5.4 Cracking des hash avec Hashcat
+
+**Preparation du fichier**:
 ```bash
-echo 'root:$1$/avpfBJ1$x0z8w5UF9Iv./DR9E9Lid.' > /tmp/hashes.txt
-john --wordlist=/usr/share/wordlists/rockyou.txt /tmp/hashes.txt
+cat > /tmp/hashes_hashcat.txt << 'EOF'
+$1$/avpfBJ1$x0z8w5UF9Iv./DR9E9Lid.
+$1$fUX6BPOt$Miyc3UpOzQJqz4s5wFD9l0
+$1$f2ZVMS4K$R9XkI.CmLdHhdUE3X9jqP0
+$1$XN10Zj2c$Rt/zzCW3mLtUWA.ihZjA5/
+$1$Rw35ik.x$MgQgZUuO5pAoUvfJhfcYe/
+$1$HESu9xrH$k.o3G93DGoXIiQKkPmUgZ0
+$1$kR3ue7JZ$7GxELDupr5Ohp6cjZ3Bu//
+EOF
 ```
+
+**Commande Hashcat** (mode 500 = md5crypt):
+```bash
+hashcat -m 500 -a 0 /tmp/hashes_hashcat.txt /tmp/custom_crack.txt --force
+```
+
+**Sortie Hashcat**:
+```
+hashcat (v6.2.6) starting
+
+OpenCL API (OpenCL 3.0 PoCL 6.0+debian Linux, LLVM 18.1.8) - Platform #1 [The pocl project]
+* Device #1: cpu-haswell-Intel(R) Core(TM) i9-10850K CPU @ 3.60GHz, 6921/13907 MB
+
+Hashes: 7 digests; 7 unique digests, 7 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes
+
+$1$XN10Zj2c$Rt/zzCW3mLtUWA.ihZjA5/:msfadmin
+$1$Rw35ik.x$MgQgZUuO5pAoUvfJhfcYe/:postgres
+$1$fUX6BPOt$Miyc3UpOzQJqz4s5wFD9l0:batman
+$1$kR3ue7JZ$7GxELDupr5Ohp6cjZ3Bu//:service
+$1$HESu9xrH$k.o3G93DGoXIiQKkPmUgZ0:user
+
+Session..........: hashcat
+Status...........: Exhausted
+Hash.Mode........: 500 (md5crypt, MD5 (Unix), Cisco-IOS $1$ (MD5))
+Time.Started.....: Fri Feb 27 15:21:57 2026, (1 sec)
+Speed.#1.........:      385 H/s (0.45ms) @ Accel:32 Loops:1000 Thr:1 Vec:8
+Recovered........: 5/7 (71.43%) Digests
+
+Started: Fri Feb 27 15:21:42 2026
+Stopped: Fri Feb 27 15:21:59 2026
+```
+
+### 5.5 Cracking avec John the Ripper
+
+**Commande**:
+```bash
+cat > /tmp/all_hashes.txt << 'EOF'
+root:$1$/avpfBJ1$x0z8w5UF9Iv./DR9E9Lid.
+sys:$1$fUX6BPOt$Miyc3UpOzQJqz4s5wFD9l0
+klog:$1$f2ZVMS4K$R9XkI.CmLdHhdUE3X9jqP0
+msfadmin:$1$XN10Zj2c$Rt/zzCW3mLtUWA.ihZjA5/
+postgres:$1$Rw35ik.x$MgQgZUuO5pAoUvfJhfcYe/
+user:$1$HESu9xrH$k.o3G93DGoXIiQKkPmUgZ0
+service:$1$kR3ue7JZ$7GxELDupr5Ohp6cjZ3Bu//
+EOF
+
+john --wordlist=/tmp/custom_wordlist.txt /tmp/all_hashes.txt
+```
+
+**Sortie John the Ripper**:
+```
+Warning: detected hash type "md5crypt", but the string is also recognized as "md5crypt-long"
+Using default input encoding: UTF-8
+Loaded 7 password hashes with 7 different salts (md5crypt, crypt(3) $1$ (and variants) [MD5 256/256 AVX2 8x3])
+Will run 20 OpenMP threads
+user             (user)
+postgres         (postgres)
+msfadmin         (msfadmin)
+batman           (sys)
+service          (service)
+5g 0:00:00:00 DONE (2026-02-27 15:19) 100.0g/s 260.0p/s 1820c/s 1820C/s root..toor
+Session completed.
+```
+
+**Verification des hash craques**:
+```bash
+$ john --show /tmp/all_hashes.txt
+sys:batman
+msfadmin:msfadmin
+postgres:postgres
+user:user
+service:service
+
+5 password hashes cracked, 2 left
+```
+
+### 5.6 Resultats du cracking
+
+| Utilisateur | Hash | Mot de passe | Craque |
+|-------------|------|--------------|--------|
+| root | `$1$/avpfBJ1$x0z8w5UF9Iv./DR9E9Lid.` | ??? | NON |
+| sys | `$1$fUX6BPOt$Miyc3UpOzQJqz4s5wFD9l0` | **batman** | OUI |
+| klog | `$1$f2ZVMS4K$R9XkI.CmLdHhdUE3X9jqP0` | ??? | NON |
+| msfadmin | `$1$XN10Zj2c$Rt/zzCW3mLtUWA.ihZjA5/` | msfadmin | OUI |
+| postgres | `$1$Rw35ik.x$MgQgZUuO5pAoUvfJhfcYe/` | postgres | OUI |
+| user | `$1$HESu9xrH$k.o3G93DGoXIiQKkPmUgZ0` | user | OUI |
+| service | `$1$kR3ue7JZ$7GxELDupr5Ohp6cjZ3Bu//` | service | OUI |
+
+**Taux de reussite**: 5/7 (71.43%)
+
+**Observation**: Le mot de passe de root n'est pas dans RockYou ni dans les wordlists communes. Il faudrait utiliser une attaque par bruteforce incremental ou des regles de mutation.
 
 ---
 
@@ -518,8 +619,3 @@ metasploitable
 - RockYou wordlist: https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
 - OpenSSH legacy algorithms: https://www.openssh.com/legacy.html
 
----
-
-**Fin du rapport**
-
-*Genere le 27 Fevrier 2026*
